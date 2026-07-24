@@ -58,11 +58,11 @@ def evaluate_prompt(user_input: str) -> str:
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     
     # Mock fallback for GitHub Actions or missing API Key
-    if not api_key or api_key == "mock-key" or os.getenv("GITHUB_ACTIONS") == "true":
+    if not api_key or os.getenv("GITHUB_ACTIONS") == "true":
         if "VF8" in user_input or "2%" in user_input:
             return '{"action": "dispatch_mobile_charger", "reason": "Pin xe VF8 đang ở mức cực kỳ thấp (2%). Cần điều động xe sạc lưu động khẩn cấp."}'
         else:
-            return '[DRAFT_ONLY] Kính chúc quý khách hàng thượng lộ bình an!'
+            return '[DRAFT_ONLY] Kính chúc quý khách hàng thượng lộ bình an!' 
     
     try:
         # Option A: New Google GenAI SDK (Preferred Standard)
