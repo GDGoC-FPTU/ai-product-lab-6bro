@@ -7,7 +7,6 @@
 | 3 | **Xanh SM** | Dự đoán nhu cầu gọi xe tăng đột biến do thời tiết/sự kiện để điều phối xe nhàn rỗi (Proactive Dispatching). | **Nỗi đau Stakeholder** (Stakeholder Pain - Tài xế & Điều phối viên) |
 | 4 | **VinFast** | Trợ lý ảo (In-car Virtual Assistant) cá nhân hóa, hiểu ngữ cảnh đàm thoại tự nhiên và ra lệnh điều khiển xe. | **Nâng cấp AI** (AI-upgrade) |
 | 5 | **Vinpearl** | Tạo lịch trình du lịch cá nhân hóa tự động cho nhóm khách gia đình dựa trên sở thích và tình trạng phòng/vé. | **Tốn thời gian & Nâng cấp AI** (Time-consuming, AI-upgrade) |
-
 ---
 
 ## 2. Thẻ bài toán nhanh (3 Quick Problem Cards)
