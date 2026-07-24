@@ -14,6 +14,16 @@ import os
 import sys
 from typing import Any
 
+# Force UTF-8 stdout/stderr so Vietnamese text doesn't crash the process
+# when stdout is piped/redirected (e.g. by the autograder's subprocess.run)
+# instead of attached to an interactive console.
+if sys.stdout.encoding != "utf-8":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 # Standard Model Identifier
 GEMINI_MODEL = "gemini-flash-latest"
 
@@ -90,10 +100,6 @@ def evaluate_prompt(user_input: str) -> str:
             generation_config=config
         )
         return response.text or ""
-    # TODO: Initialize Gemini client and call model.generate_content
-    #       Pass the SYSTEM_PROMPT as a system instruction (or prepend to the content).
-    #       Return the model's response text.
-    raise NotImplementedError("Implement evaluate_prompt")
 
 
 # ===========================================================================
