@@ -1,60 +1,120 @@
-## 1. Bảng quét cơ hội (Opportunity SCAN Table)
+# Lab 02 — Problem Scan & Quick Assessments
 
-| STT | Công ty thành viên | Tên bài toán tiềm năng | Thấu kính áp dụng (Lens) |
-| :--- | :--- | :--- | :--- |
-| 1 | **Vinmec** | Tóm tắt hồ sơ bệnh án, lịch sử khám chữa bệnh dài hạn cho bác sĩ trước ca khám. | **Tốn thời gian** (Time-consuming) |
-| 2 | **Vinhomes** | Phân loại và tự động điều phối các yêu cầu bảo trì (điện, nước, vệ sinh) từ cư dân qua app. | **Lặp lại** (Repetitive) |
-| 3 | **Xanh SM** | Dự đoán nhu cầu gọi xe tăng đột biến do thời tiết/sự kiện để điều phối xe nhàn rỗi (Proactive Dispatching). | **Nỗi đau Stakeholder** (Stakeholder Pain - Tài xế & Điều phối viên) |
-| 4 | **VinFast** | Trợ lý ảo (In-car Virtual Assistant) cá nhân hóa, hiểu ngữ cảnh đàm thoại tự nhiên và ra lệnh điều khiển xe. | **Nâng cấp AI** (AI-upgrade) |
-| 5 | **Vinpearl** | Tạo lịch trình du lịch cá nhân hóa tự động cho nhóm khách gia đình dựa trên sở thích và tình trạng phòng/vé. | **Tốn thời gian & Nâng cấp AI** (Time-consuming, AI-upgrade) |
----
+## 🔍 Phase 1 — SCAN (Cá nhân)
 
-## 2. Thẻ bài toán nhanh (3 Quick Problem Cards)
+Dưới đây là bảng quét cơ hội (SCAN) ứng dụng AI tại các công ty thành viên thuộc tập đoàn Vingroup, sử dụng **4 Lenses** (Thấu kính) để tìm kiếm các nút thắt cổ chai thực tế trong vận hành.
 
-### 💳 Problem Card 1: Tóm tắt hồ sơ y tế bệnh nhân
-*   **Tên bài toán:** Rút trích và tóm tắt lịch sử khám chữa bệnh.
-*   **Công ty thành viên:** Vinmec.
-*   **Tác nhân (Actor):** Bác sĩ / Y tá tiếp nhận.
-*   **Quy trình thủ công hiện tại:** 
-    1. Bệnh nhân check-in.
-    2. Bác sĩ mở hệ thống HIS (Hospital Information System).
-    3. Bác sĩ đọc lại các ghi chú y khoa, toa thuốc, và kết quả xét nghiệm của 5-10 lần khám trước.
-    4. Bác sĩ ghi chú lại các bệnh lý nền và rủi ro dị ứng.
-    5. Bắt đầu phiên khám mới.
-*   **Bước tốn thời gian/Gây lỗi nhất:** Đọc và tổng hợp thông tin từ nhiều trang ghi chú cũ (Ước tính: **10 - 15 phút/bệnh nhân**). Nguy cơ bỏ sót thông tin dị ứng thuốc nếu bác sĩ đọc lướt.
-*   **Bước AI tham gia:** LLM tự động tổng hợp toàn bộ hồ sơ cũ và hiển thị một thẻ "Key Medical History" (Gồm: Bệnh lý nền, Thuốc đang dùng, Dị ứng, Lịch sử phẫu thuật) ngay khi bác sĩ mở hồ sơ.
-*   **Metric đo lường thành công:** Giảm thời gian đọc hiểu hồ sơ y tế trước ca khám từ **15 phút xuống dưới 2 phút**, đạt độ chính xác > 99% trong việc trích xuất thông tin dị ứng.
-*   **Kiến trúc đề xuất:** LLM (Sử dụng kỹ thuật RAG trên kho dữ liệu y bạ của bệnh nhân).
+### 📝 Bảng quét cơ hội (SCAN):
+
+| # | Công ty thành viên | Thấu kính (Lens) | Quy trình thủ công & Mô tả ngắn bài toán |
+|---|---------------------|------------------|----------------------------------------|
+| 1 | **Vinhomes** | Tốn thời gian (Time-consuming) | **Xử lý và phản hồi ý kiến cư dân trên ứng dụng VinID:** Nhân viên vận hành tòa nhà phải đọc thủ công hàng trăm phản hồi, khiếu nại (tiếng ồn, rác thải, hỏng hóc thiết bị), tự phân loại rồi soạn thư trả lời cư dân theo cách thủ công. |
+| 2 | **Vinmec** | Tốn thời gian (Time-consuming) | **Tóm tắt hồ sơ bệnh án xuất viện:** Bác sĩ và nhân viên hành chính phải đọc lại hàng loạt tài liệu lâm sàng (ghi chú khám, kết quả xét nghiệm, lịch sử đơn thuốc) để viết báo cáo tóm tắt xuất viện và hồ sơ gửi bảo hiểm. |
+| 3 | **Xanh SM (GSM)** | Stakeholder Pain & Lặp lại | **Hỗ trợ định vị lại lộ trình tối ưu khi gặp sự cố trên đường:** Tài xế khi gặp tắc đường bất ngờ hoặc sự cố giao thông phải vừa lái xe vừa tra cứu bản đồ ngoài (Google Maps) để tìm đường mới và thương lượng lộ trình với khách hàng. |
+| 4 | **VinFast** | Lặp lại (Repetitive) | **Đối soát hóa đơn sạc điện của khách hàng:** Nhân viên kế toán đối soát thủ công mã giao dịch ngân hàng với lịch sử phiên sạc trên hệ thống cơ sở dữ liệu khi có sai lệch mô tả chuyển khoản từ người dùng. |
+| 5 | **Vinpearl** | AI-upgrade | **Tư vấn lịch trình du lịch cá nhân hóa tại resort:** Nhân viên CSKH/Concierge trao đổi thủ công với du khách qua Zalo/Email để tư vấn lịch trình vui chơi tại VinWonders, ăn uống và thư giãn dựa trên sở thích riêng lẻ của gia đình họ. |
 
 ---
 
-### 💳 Problem Card 2: Điều vận thông minh đa luồng
-*   **Tên bài toán:** Điều phối xe chủ động dựa trên tín hiệu thời tiết và kẹt xe.
-*   **Công ty thành viên:** Xanh SM.
-*   **Tác nhân (Actor):** Điều phối viên (Dispatcher) / Tài xế.
-*   **Quy trình thủ công hiện tại:**
-    1. Trời bắt đầu mưa lớn hoặc có sự kiện.
-    2. Nhu cầu gọi xe tại một khu vực tăng vọt.
-    3. Điều phối viên nhìn bản đồ nhiệt (heatmap), phát hiện thiếu hụt xe.
-    4. Điều phối viên gửi tin nhắn broadcast kêu gọi tài xế di chuyển về khu vực đó.
-    5. Tài xế đọc tin nhắn và tự quyết định có chạy xe không khách (deadhead) đến đó không.
-*   **Bước tốn thời gian/Gây lỗi nhất:** Việc giám sát heatmap và kêu gọi tài xế bị trễ nhịp (độ trễ **20 - 30 phút**), dẫn đến khách hàng phải chờ lâu và hủy chuyến.
-*   **Bước AI tham gia:** Hệ thống liên tục quét dữ liệu thời tiết và luồng giao thông. Khi có dấu hiệu bất thường, AI Agent tự động tính toán chi phí cơ hội và trực tiếp gợi ý lộ trình di chuyển "đón đầu" cho các tài xế đang nhàn rỗi ở khu vực lân cận, kèm theo phần thưởng thưởng điểm.
-*   **Metric đo lường thành công:** Giảm thời gian khách hàng chờ xe trong điều kiện thời tiết xấu từ **hơn 15 phút xuống dưới 7 phút**.
-*   **Kiến trúc đề xuất:** AI Agent (Kết hợp Rule-based cho các ngưỡng trigger và Agent để tính toán, đàm phán luồng tài xế).
+## 🃏 Phase 2 — QUICK-ASSESS (Cá nhân)
+
+Chọn 3 bài toán tiềm năng nhất từ danh sách trên để phân tích sơ bộ qua các thẻ bài toán (Quick Problem Cards).
+
+### 1. QUICK PROBLEM CARD #1: Phân loại và Phản hồi tự động Khiếu nại Cư dân (Vinhomes)
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #1                                       │
+│                                                             │
+│ Bài toán (1 câu): Tự động hóa phân loại khiếu nại và soạn   │
+│ thảo thư phản hồi cá nhân hóa cho cư dân trên VinID.        │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [x] Vinhomes  │
+│                     [ ] Vinmec   [ ] Khác (Ghi rõ)________  │
+│                                                             │
+│ Ai đang đau (Actor)? Nhân viên CSKH/Ban quản lý tòa nhà.    │
+│                                                             │
+│ Workflow thủ công hiện tại (3-5 bước):                      │
+│   1. Cư dân gửi khiếu nại qua app VinID.                    │
+│   2. Nhân viên đọc thủ công, phân loại nội dung khiếu nại.  │
+│   3. Chuyển giao thông tin tới bộ phận kỹ thuật/vệ sinh...  │
+│   4. Soạn thảo thư phản hồi lịch sự theo mẫu.               │
+│   5. Gửi thư phản hồi xác nhận cho cư dân.                  │
+│                                                             │
+│ Bước nào tốn thời gian/lỗi nhất? Soạn thư phản hồi thủ công │
+│ và phân loại chính xác bộ phận xử lý (⏱ 10 phút/lượt).      │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Phân loại tự động và  │
+│ soạn thảo dự thảo thư phản hồi cho cư dân.                  │
+│                                                             │
+│ Đo thành công bằng gì (Metric có số)?                        │
+│   Giảm thời gian soạn phản hồi từ 10 phút ──> dưới 1.5 phút  │
+│                                                             │
+│ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-### 💳 Problem Card 3: Tự động phân luồng yêu cầu từ cư dân
-*   **Tên bài toán:** Phân loại yêu cầu hỗ trợ bảo trì qua ứng dụng.
-*   **Công ty thành viên:** Vinhomes.
-*   **Tác nhân (Actor):** Lễ tân tòa nhà / Ban quản lý.
-*   **Quy trình thủ công hiện tại:**
-    1. Cư dân gửi yêu cầu qua app (định dạng văn bản tự do, VD: *"Điều hòa phòng khách kêu to quá mà nước chảy lênh láng"*).
-    2. Lễ tân đọc tin nhắn trên hệ thống CRM.
-    3. Lễ tân xác định phân loại sự cố (Điện, Nước, Mộc, Vệ sinh).
-    4. Lễ tân tạo ticket và gán cho đội kỹ thuật tương ứng.
-*   **Bước tốn thời gian/Gây lỗi nhất:** Đọc và phân loại thủ công các đoạn văn bản tự do, đặc biệt dễ quá tải và chậm trễ (tắc nghẽn) vào giờ cao điểm hoặc buổi tối (Ước tính: **3 - 5 phút/ticket**).
-*   **Bước AI tham gia:** AI đọc hiểu tin nhắn tự do của cư dân, tự động trích xuất các thông tin (Mã căn hộ, Loại sự cố, Mức độ khẩn cấp) và gán thẳng ticket cho trưởng ca kỹ thuật phù hợp mà không cần lễ tân can thiệp.
-*   **Metric đo lường thành công:** Giảm thời gian xử lý và phân luồng ticket từ **5 phút xuống dưới 5 giây/ticket** với tỷ lệ định tuyến sai (misrouting) dưới 3%.
-*   **Kiến trúc đề xuất:** LLM (Sử dụng prompt cơ bản với cấu trúc đầu ra JSON để tích hợp thẳng vào CRM).
+### 2. QUICK PROBLEM CARD #2: Tóm tắt Hồ sơ Bệnh án xuất viện Chuẩn Y khoa (Vinmec)
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #2                                       │
+│                                                             │
+│ Bài toán (1 câu): Tự động tổng hợp dữ liệu lâm sàng thô     │
+│ để tạo dự thảo báo cáo tóm tắt xuất viện cho bệnh nhân.     │
+│ Công ty thành viên: [ ] VinFast  [ ] Xanh SM  [ ] Vinhomes  │
+│                     [x] Vinmec   [ ] Khác (Ghi rõ)________  │
+│                                                             │
+│ Ai đang đau (Actor)? Bác sĩ điều trị và Thư ký y khoa.      │
+│                                                             │
+│ Workflow thủ công hiện tại (3-5 bước):                      │
+│   1. Bệnh nhân có chỉ định xuất viện từ bác sĩ.             │
+│   2. Bác sĩ tra cứu lại toàn bộ bệnh án trên hệ thống EHR.   │
+│   3. Tổng hợp tay các kết quả xét nghiệm, đơn thuốc, chẩn   │
+│      đoán thành văn bản tóm tắt y khoa ra viện.            │
+│   4. Ký duyệt hồ sơ và gửi cho bộ phận kế toán/bảo hiểm.     │
+│                                                             │
+│ Bước nào tốn thời gian/lỗi nhất? Đọc hiểu, lọc thông tin    │
+│ chính xác từ các file bệnh án rải rác (⏱ 20 phút/lượt).     │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Trích xuất thông tin, │
+│ tổng hợp dữ liệu và viết dự thảo tóm tắt xuất viện y khoa.   │
+│                                                             │
+│ Đo thành công bằng gì (Metric có số)?                        │
+│   Giảm thời gian tạo tóm tắt bệnh án từ 20 phút ──> dưới 3    │
+│   phút (bác sĩ chỉ cần kiểm tra nhanh và nhấn nút duyệt).   │
+│                                                             │
+│ Quick Architecture: [ ] No AI  [ ] Rule  [x] LLM  [ ] Agent │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### 3. QUICK PROBLEM CARD #3: Trợ lý Lộ trình và Điều vận Thông minh (Xanh SM)
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ QUICK PROBLEM CARD #3                                       │
+│                                                             │
+│ Bài toán (1 câu): Hỗ trợ tài xế tìm kiếm lộ trình thay thế  │
+│ tối ưu qua giọng nói rảnh tay khi phát hiện tắc đường.      │
+│ Công ty thành viên: [ ] VinFast  [x] Xanh SM  [ ] Vinhomes  │
+│                     [ ] Vinmec   [ ] Khác (Ghi rõ)________  │
+│                                                             │
+│ Ai đang đau (Actor)? Tài xế Xanh SM đang chở khách thực địa. │
+│                                                             │
+│ Workflow thủ công hiện tại (3-5 bước):                      │
+│   1. Xe gặp sự cố tắc đường hoặc rào chắn trên lộ trình.   │
+│   2. Tài xế dừng xe hoặc vừa lái vừa mở app phụ bản đồ.    │
+│   3. Tra cứu, gõ tìm lộ trình tránh tắc đường.               │
+│   4. Giải thích và thương lượng phương án mới với khách.    │
+│   5. Đổi hướng di chuyển.                                   │
+│                                                             │
+│ Bước nào tốn thời gian/lỗi nhất? Tìm kiếm đường thay thế    │
+│ thủ công và giải thích cho khách hàng (⏱ 3-5 phút/lượt).     │
+│ AI có thể nhảy vào hỗ trợ ở bước nào? Nhận diện giọng nói, │
+│ tự động đề xuất lộ trình mới và tạo mẫu thông báo cho khách.│
+│                                                             │
+│ Đo thành công bằng gì (Metric có số)?                        │
+│   Giảm thời gian xử lý định vị lại lộ trình từ 3 phút       │
+│   ──> dưới 10 giây qua tương tác giọng nói an toàn.          │
+│                                                             │
+│ Quick Architecture: [ ] No AI  [ ] Rule  [ ] LLM  [x] Agent │
+└─────────────────────────────────────────────────────────────┘
+```

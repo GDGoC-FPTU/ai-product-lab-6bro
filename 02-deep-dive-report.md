@@ -8,7 +8,7 @@
 * **Họ và tên:** Nguyễn Đức Thiện — **MSSV:** 2A202601415
 * **Họ và tên:** Đinh Quốc Trung — **MSSV:** 2A202601687
 * **Họ và tên:** Trương Văn Thái — **MSSV:** 2A202601801
-* **Họ và tên:** Trần Trí Tâm — **MSSV:** 2A202601535
+* **Họ và tên:** Trần Chí Tâm — **MSSV:** 2A202601535
 
 ---
 
